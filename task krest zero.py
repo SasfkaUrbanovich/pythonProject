@@ -1,11 +1,11 @@
 def draw_board(board):
     for i in range(3):
-        print(board[0+i*3], board[1+i*3], board[2+i*3])
+        print(board[0 + i * 3], board[1 + i * 3], board[2 + i * 3])
 
 
 def play(xo):
     correct = False
-    while correct != True:
+    while not correct:
         answer = input(f'Куда поставим {xo} ')
         try:
             answer = int(answer)
@@ -13,15 +13,14 @@ def play(xo):
             print('Некорректный ввод. Вы уверены, что ввели число? ')
             continue
         if int(answer) in range(10):
-            if answer-1 != 'X' and answer-1 != 'O':
-                board[answer-1] = xo
+            if board[answer - 1] != 'X' and board[answer - 1] != 'O':
+                board[answer - 1] = xo
                 draw_board(board)
                 correct = True
             else:
                 print('Место занято')
         else:
             print('Введите число от 1 до 9')
-
 
 
 def cheak_win(board):
@@ -34,19 +33,19 @@ def cheak_win(board):
     return False
 
 
-def main(board):
+def main():
     draw_board(board)
     count = 0
     win = False
-    while win == False:
+    while not win:
         if count % 2 == 0:
             play(xo='X')
             count += 1
         else:
             play(xo='O')
             count += 1
-        if count > 3:
-            if cheak_win(board) != False:
+        if count > 4:
+            if cheak_win(board):
                 win = True
                 break
     return print('ПОБЕДА')
@@ -54,4 +53,4 @@ def main(board):
 
 if __name__ == '__main__':
     board = list(range(1, 10))
-    main(board)
+    main()
